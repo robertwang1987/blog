@@ -15,12 +15,17 @@ $base-line-height: 1.5;
 $spacing-unit:     30px;
 
 $text-color:       #111;
-$background-color: #fdfdfd;
+$background-color: #fffff8;
 $brand-color:      #2a7ae2;
 
 $grey-color:       #828282;
+$grey-color-lighter: #a6a6a8;
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
+
+$black-dark:       #191f2c;
+$black-light:      #2f2b2f;
+$grass-green:      #d9ff64;
 
 // Width of the content area
 $content-width:    800px;
