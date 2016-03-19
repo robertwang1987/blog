@@ -22,10 +22,16 @@
     &:visited {
         color: $grey-color-lighter;
     }
+    &:first-letter {
+      color: $grass-green;
+    }
 }
 
 .site-title:hover {
   text-decoration: none;
+  &:first-letter {
+    color: $black-dark;
+  }
 }
 
 .site-nav {
