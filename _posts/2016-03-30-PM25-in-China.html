@@ -1,0 +1,87 @@
+---
+layout: post-z
+title: PM 2.5 in China
+---
+
+<p id="city">Beijing</p>
+<span class="highlight"><span class="gr error"></span></span>
+<h1 class="pm25"></h1>
+<div id="summary" style="display: none;"></div>
+<div id="positions" style="display: none;"></div>
+<script type="text/template" id="tpl-item">
+    <ul class="aq-item">
+        <% if (position_name) { %>
+        <li>
+            <label>测量地点：</label><span><%=position_name%></span>
+        </li>
+        <% } %>
+        <li>
+            <label>空气质量指数：</label><span><%=aqi%></span>
+        </li>
+        <li>
+            <label>PM2.5：</label><span><%=pm2_5%></span>
+        </li>
+        <li>
+            <label>污染程度：</label><span><%=quality%></span>
+        </li>
+        <li>
+            <label>主要污染物：</label><span><%=primary_pollutant%></span>
+        </li>
+        <li>
+            <label>测量时间：</label><span><%=time_point%></span>
+        </li>
+    </ul>
+</script>
+<script>
+
+    function showError(msg) {
+        msg = msg || '';
+        $('.error').text(msg);
+    }
+
+    function renderData(id, box, data, callback){
+        var html;
+        if(data){
+            var renderfun=_.template($('#'+id).html());
+            html=renderfun(data);
+            $('#'+box).append(html);
+        }
+        if (callback) {callback();}
+    }
+
+    $.ajax({
+        url: 'http://www.pm25.in/api/querys/pm2_5.json',
+        data: {'token':'zenNHp5ESWQfuJfwq17p', 'city': 'beijing'},
+        dataType: 'jsonp',
+        success: function(obj) {
+            if (obj) {
+                if (obj.error) {
+                    showError(obj.error);
+                } else {
+                    if(typeof obj == 'object' && obj.length >=0) {
+                        for(var i=0; i<obj.length; i++) {
+                            var item = obj[i];
+                            if (item.position_name) {
+                                renderData('tpl-item', 'positions', item);
+                            } else {
+                                $('h1.pm25').text(item.pm2_5);
+                                renderData('tpl-item', 'summary', item);
+                            }
+                        }
+                    }
+                }
+            } else {
+                showError('读取数据异常');
+            }
+        }
+    });
+
+    $('.pm25').click(function(e){
+        $('#summary').show();
+    });
+
+    $('#city').click(function(e){
+        $('#positions').show();
+    });
+
+</script>

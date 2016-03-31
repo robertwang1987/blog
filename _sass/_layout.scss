@@ -345,5 +345,23 @@ a.btn-link:hover {
   -webkit-transition: 0.3s ease;
 }
 
+ul.aq-item {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  li {
+    label {
+      font-weight: bold;
+      width: 127px;
+      display: inline-block;
+    }
+    span {
+
+    }
+  }
+}
+
 
 
